@@ -7,7 +7,7 @@
 ### Array
 
 - [实现flat方法](https://github.com/senfish/blog/issues/6)
-- [用reduce实现map方法](用reduce实现map函数)
+- [用reduce实现map方法](https://github.com/senfish/blog/issues/7)
 
 ### JavaScript
 
