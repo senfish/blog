@@ -1,8 +1,6 @@
 # blog
 
 推荐一个很赞的前端笔试题网站[BFE](https://bigfrontend.dev/zh/problem)
-
-记录一些常见手写笔试题
 ## 手写专栏
 ### Array
 
