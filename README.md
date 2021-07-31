@@ -21,4 +21,5 @@
 - [实现一个Queue类](https://github.com/senfish/blog/issues/9)（**`字节`**）
 - [实现一个GreetRobot，使之具有以下能力](https://github.com/senfish/blog/issues/10)（**`字节`**）
 - [实现promise.all](https://github.com/senfish/blog/issues/11)（**`字节`**）
+- [实现一个简单的EventEmitter](https://github.com/senfish/blog/issues/12)
 ## JS基础
