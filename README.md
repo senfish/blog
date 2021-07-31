@@ -23,4 +23,5 @@
 - [实现promise.all](https://github.com/senfish/blog/issues/11)（**`字节`**）
 - [实现一个简单的EventEmitter](https://github.com/senfish/blog/issues/12)
 - [大数相加](https://github.com/senfish/blog/issues/13)
+- [实现中间件的挂载(compose)](https://github.com/senfish/blog/issues/14)
 ## JS基础
