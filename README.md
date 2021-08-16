@@ -1,6 +1,8 @@
 # blog
 
 推荐一个很赞的前端笔试题网站[BFE](https://bigfrontend.dev/zh/problem)
+
+推荐阅读 [近期的大厂面经(含字节、滴滴等公司)](https://juejin.cn/post/6995744994166308895)
 ## 手写专栏
 ### Array
 
@@ -23,3 +25,4 @@
 - [大数相加](https://github.com/senfish/blog/issues/13)
 - [实现中间件的挂载(compose)](https://github.com/senfish/blog/issues/14)
 ## JS基础
+
