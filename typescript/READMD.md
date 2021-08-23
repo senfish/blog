@@ -53,6 +53,9 @@ type A = MyPick<Foo, 'a' | 'b'> // {a: string, b: number}
 type B = MyPick<Foo, 'c'> // {c: boolean}
 type C = MyPick<Foo, 'd'> // Error
 ```
-
+实现：
 ```ts
+type MyPick<Foo, K extends keyof Foo> = {
+  [k in K]: Foo[k]
+}
 ```
