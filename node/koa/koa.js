@@ -12,15 +12,16 @@ koa.prototype.listen = function () {
   const fn = compose(this.middleares);
 }
 
-function compose (middleares) {
+function compose(middleares) {
   let index = -1;
-  return dispatch(0);
-  function dispatch(i) {
+  const dispatch = (i) => {
+    if(i <= index) throw new Error('next（） 不能调用多次');
     index = i;
-    let fn = middleares[i];
-    if(i === middleares.length) return; // 返回到最后一个中间件里面去
-    return fn('ctx', dispatch.bind(null, i + 1));
+    if(i >= middleares.length) return;
+    const middleare = middleares[i];
+    return middleare('ctx', dispatch.bind(null, i + 1));
   }
+  return dispatch(0);
 }
 
 module.exports = koa;
