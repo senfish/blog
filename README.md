@@ -18,7 +18,7 @@
 
 ### NodeJS
 
-- [原来Koa实现洋葱模型只有11行代码]('./node/koa/koa.md')
+- [原来Koa实现洋葱模型只有11行代码](/node/koa/koa.md)
 
 ### 常见面试手写题
 - [实现一个带并发控制的异步调度器，保证同时运动的任务最多有两个](https://github.com/senfish/blog/issues/8)（**`字节`**）
