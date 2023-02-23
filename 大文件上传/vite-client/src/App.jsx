@@ -20,30 +20,17 @@ function App() {
 
   const onSubmit = () => {
     console.log('onSubmit => fileList', fileList);
-    fetch('http://localhost:8020/?name=tom')
-    .then((res) => res.json())
-    .then(res => {
-      console.log('res: ', res);
-    })
   }
   return (
-    // <div className="upload-file">
-    //   <Upload
-    //     name="largeFile"
-    //     action={"http://localhost:8020/?userid=12"}
-    //     // beforeUpload={beforeUpload}
-    //   >
-    //     <Button icon={<UploadOutlined />}>Click to Upload</Button>
-    //   </Upload>
-    //   <Button type='primary' onClick={onSubmit}>提交</Button>
-    // </div>
-    <div>
-      <Button onClick={() => setAge((pre) => pre + 1) }>改变年龄</Button>
-      <Button onClick={() => setFileList([])}>刷新</Button>
-      <Son
-        name={'ton'}
-        age={age}
-      />
+    <div className="upload-file">
+      <Upload
+        name="largeFile"
+        action={"http://localhost:3001/?userid=12"}
+        // beforeUpload={beforeUpload}
+      >
+        <Button icon={<UploadOutlined />}>Click to Upload</Button>
+      </Upload>
+      <Button type='primary' onClick={onSubmit}>提交</Button>
     </div>
   );
 }
