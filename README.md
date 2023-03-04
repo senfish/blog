@@ -11,6 +11,7 @@
 
 ### JavaScript
 
+- [如何让for of遍历对象](/javascript/%E5%A6%82%E4%BD%95%E8%AE%A9for...of%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1.md)
 - [实现new关键字](https://github.com/senfish/blog/issues/1)
 - [实现call、bind、apply方法](https://github.com/senfish/blog/issues/5)
 - [实现instanceof关键字](https://github.com/senfish/blog/issues/2)

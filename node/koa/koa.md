@@ -207,7 +207,7 @@ Koa.prototype.listen = function () {
 function compose(middleares) {
   let index = -1;
   const dispatch = (i) => {
-    if(i <= index) throw new Error('next（） 不能调用多次');
+    if(i <= index) throw new Error('next() called multiple times');
     index = i;
     if(i >= middleares.length) return;
     const middleare = middleares[i];
