@@ -4,5 +4,11 @@ module.exports = {
   },
   set method(val) {
     return this.req.method = val;
-  }
+  },
+  get url () {
+    return this.req.url
+  },
+  set url (val) {
+    this.req.url = val
+  },
 }

@@ -4,11 +4,12 @@ const cors = require('@koa/cors'); // 处理跨域
 
 // app.use(cors());
 
-app.on('error', () => {});
-
 app.use(async(ctx, next) => {
   console.log('ctx', ctx.request.search);
-  ctx.body = 'hello world'
+  await next();
+  ctx.body = '1111'
 });
-
+app.use(async(ctx, next) => {
+  ctx.body = '222'
+});
 app.listen(3000)

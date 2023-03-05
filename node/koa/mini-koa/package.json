@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "delegates": "^1.0.0",
+    "statuses": "^2.0.1"
+  }
+}
