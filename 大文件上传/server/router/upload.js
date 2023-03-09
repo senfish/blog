@@ -5,21 +5,20 @@ const path = require('path');
 
 /**
  *  /upload         formdata格式
- * @param {} targetPath 
+ * @param {} tempPath 
  * @returns 
  */
-function uploadMiddleare(targetPath) {
-
+function uploadMiddleare(tempPath) {
   return async (ctx, next) => {
     if (ctx.method === 'POST' && ctx.url === '/upload') {
       const {
         hash,
-        index
+        index,
+        filehash
       } = ctx.request.body || {};
       const file = ctx.request.files.file;
-      // 修改文件名
-      fse.move(file.filepath, `${targetPath}/${hash}-${index}-${file.newFilename}`, (err) => {
-        console.log('fse.move => err: ', err);
+      fse.move(file.filepath, `${tempPath}/${hash}-${index}-${file.newFilename}`, (err) => {
+        console.log('false => fse.move => err: ', err);
       });
       ctx.body = {
         code: 200,

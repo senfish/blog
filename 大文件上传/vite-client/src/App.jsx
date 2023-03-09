@@ -13,6 +13,7 @@ function App() {
   const [percent, setPercent] = useState(0);
 
   const beforeUpload = (file, fileList) => {
+    console.log('file: ', file);
     setFileList([file]);
     return false;
   };
@@ -36,6 +37,7 @@ function App() {
       formData.append("file", chunk.file);
       formData.append("index", chunk.index);
       formData.append("max", chunks.length);
+      formData.append("filehash", fileList[0].name.split('.')[0])
       return formData;
     });
     // 包装成数组请求

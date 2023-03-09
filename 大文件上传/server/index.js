@@ -8,13 +8,13 @@ const mergefile = require('./router/mergefile.js');
 const progressUpload = require('./router/progress.js');
 
 const port = 3000;
-const targetPath = path.join(__dirname, 'target'); // 切片文件暂存目录
+const tempPath = path.join(__dirname, 'temp'); // 切片文件暂存目录
 
 app.use(cors());  // 处理跨域
 app.use(koaBody({ // 解析上传文件
   multipart: true,
   formidable: {
-    uploadDir: targetPath,
+    uploadDir: tempPath,
     keepExtensions: true,
     onFileBegin: (name, file) => {
     }
@@ -22,8 +22,8 @@ app.use(koaBody({ // 解析上传文件
 }));
 
 // router
-app.use(upload(targetPath)); 
-app.use(mergefile(targetPath));
+app.use(upload(tempPath)); 
+app.use(mergefile(tempPath));
 app.use(progressUpload(path.resolve(__dirname, './progress')));
 
 app.listen(port, () => {
