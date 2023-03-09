@@ -1,5 +1,3 @@
-## 揭秘Koa原理，带你实现一个mini-koa
-
 [上一篇讲解了koa洋葱模型是如何实现的，并写了一个最小实现方案](https://juejin.cn/post/7202801134557069373)，这一篇讲全面讲解koa源码实现的细节，看看有哪些点值得我们学习。
 
 ```js
@@ -17,15 +15,15 @@ _koa@2.14.1@koa
 ├─dist
 |  └koa.mjs
 ```
-koa库的文件结构非常简单，实现的逻辑都在lib目录下面，一共有四个模块，分别是application、context、request、response。
+`koa`库的文件结构非常简单，实现的逻辑都在`lib`目录下面，一共有四个模块，分别是`application`、`context`、`request`、`response`。
 
 ## delegates库是干什么用的
 
-在讲解源码之前，先要介绍一下一个库：[delegates](https://www.npmjs.com/package/delegates)。context的部分实现就是用这个库，将一些方法和属性在访问的时候委托(或者说代理)到了request和respone上（类似于[Object.defineProperty](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)）。
+在讲解源码之前，先要介绍一下一个库：[delegates](https://www.npmjs.com/package/delegates)。`context`的部分实现就是用这个库，将一些方法和属性在访问的时候委托(或者说代理)到了`request`和`respone`上（类似于[Object.defineProperty](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)）。
 
 delegates接收两个参数，一个是proto，一个是target，proto是访问对象，target是代理对象。
 
-### `delegate(proto, target).setter(name)`
+-  `delegate(proto, target).setter(name)`
 注册setter的name，比如当给proto[name]赋值的时候，其实是给target[name]赋值
 ### `delegate(proto, target).getter(name)`
 注册getter的name，比如当获取proto[name]的值的时候，得到的是target[name]的值
@@ -80,7 +78,7 @@ app.listen(3000)
 ```
 源码展示：
 ![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2ea18145c62d4128b7576a035ef58a34~tplv-k3u1fbpfcp-watermark.image?)
-去除一些不影响主逻辑的代码，constructor函数其实只创建了四个变量。
+去除一些不影响主逻辑的代码，`constructor`函数其实只创建了四个变量。
 
 ```js
 // index.js
@@ -106,14 +104,14 @@ class Application extends Emitter {// 继承events模块，方便监听
       deprecate('Support for generators will be removed in v3. ' +
                 'See the documentation for examples of how to convert old middleware ' +
                 'https://github.com/koajs/koa/blob/master/docs/migration.md');
-      fn = convert(fn);
+      fn = convert(fn); // 将generators函数转成async函数
     }
     debug('use %s', fn._name || fn.name || '-');
     this.middleware.push(fn);
     return this;
   }
 ```
-去掉一些边界判断条件，use方法其实只做了两件事：1.收集中间件；2.返回this，支持链式调用。再看listen方法。
+去掉一些边界判断条件，`use`方法其实只做了两件事：1.收集中间件；2.返回this，支持链式调用。再看`listen`方法。
 ```js
   listen(...args) {
     debug('listen');
@@ -121,7 +119,7 @@ class Application extends Emitter {// 继承events模块，方便监听
     return server.listen(...args);
   }
 ```
-listen方法也很简单，就是利用http模块，创建了一个服务，并传入了一个this.callback回调函数，同时将参数透传给http服务的listen方法。(this.callback就是koa最关键的函数)
+`listen`方法也很简单，就是利用`http`模块，创建了一个服务，并传入了一个`this.callback`回调函数，同时将参数透传给`http`服务的`listen`方法。
 > http.createServer接收一个回调函数，参数形式为：http.createServer((res, req) => {})
 
 继续完善我们的mini-koa
@@ -155,7 +153,7 @@ class Application extends Emitter {
 }
 ```
 ## 实现完整版的compose函数
-继续看看源码的callback如何实现：
+继续看看源码的`callback`如何实现：
 ```js
   callback() {
     const fn = compose(this.middleware);
@@ -192,9 +190,9 @@ class Application extends Emitter {
   }
 ```
 
-首先看callback函数第一行代码`const fn = compose(this.middleware)`，利用compose函数，组合了中间件，返回了一个fn，后面将fn传给了this.handleRequest()的第二个参数（第一个参数是context）。在this.handleRequest这个函数里面，fn被命名为fnMiddleare，最后this.handleRequest是返回了`fnMiddleware(ctx).then(handleResponse).catch(onerror)`，所以可以得到以下几点：
-- 调用compose函数返回的是一个fn函数，这个函数接收context作为参数
-- 调用fn函数返回了一个promise
+首先看`callback`函数第一行代码`const fn = compose(this.middleware)`，利用`compose`函数，组合了中间件，返回了一个`fn`，后面将`fn`传给了`this.handleRequest()`的第二个参数（第一个参数是`context`）。在`this.handleRequest`这个函数里面，`fn`被命名为`fnMiddleare`，最后`this.handleRequest`是返回了`fnMiddleware(ctx).then(handleResponse).catch(onerror)`，所以可以得到以下几点：
+- 调用`compose`函数返回的是一个fn函数，这个函数接收`context`作为参数
+- 调用`fn`函数返回了一个`promise`
 
 所以在上一篇[原来koa实现洋葱模型只有11行代码](https://juejin.cn/post/7202801134557069373)文章的基础之上，稍微修改一下即可。
 ```js
@@ -244,7 +242,7 @@ delegate(proto, 'request')
 ```
 前面已经简单讲过delegates的使用方法，context除了一些自身定义的方法之外，还有许多方法是直接委托到response和request上。
 
-## 实现koa本身的request/response
+## 实现request/response
 ```js
 // request.js
 module.exports = {
@@ -257,7 +255,7 @@ module.exports = {
   ...
 }
 ```
-koa的request是在原生的req基础之上，做了很多方法的封装，方便操作；response也是同理的，这里就不再展开讨论。
+`koa`的`request`是在原生的`req`基础之上，做了很多方法的封装，方便操作；`response`也是同理的，这里不再展开讨论。
 
 ## 错误拦截
 ### 注册错误函数
@@ -329,7 +327,7 @@ handleRequest(ctx, fnMiddleware) {
     return fnMiddleware(ctx).then(handleResponse).catch(onerror);
 }
 ```
-还是在application.js的this.handleRequest函数里面，当执行完fnMiddleare(ctx)之后会调用then方法，相当于调用了respon方法，如上图。
+还是在application.js的this.handleRequest函数里面，当执行完fnMiddleare(ctx)之后会调用then方法，相当于调用了respond方法。
 
 ```js
 function respond(ctx) {
@@ -352,3 +350,7 @@ function respond(ctx) {
 }
 ```
 可以看到，respond函数主要就是对body为Buffer、String、Stream、Json的类型分别判断处理。
+
+
+## 总结
+戳这里查看[mini-koa]()源码
