@@ -14,7 +14,7 @@ app.use(cors());  // 处理跨域
 app.use(koaBody({ // 解析上传文件
   multipart: true,
   formidable: {
-    uploadDir: tempPath,
+    // uploadDir: tempPath,
     keepExtensions: true,
     onFileBegin: (name, file) => {
     }

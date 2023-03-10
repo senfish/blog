@@ -31,7 +31,6 @@ server
 ├─package.json
 ├─target // 切片文件暂存目录
 ├─static // 合并之后的文件目录
-    └combine.txt
 ├─router
     ├─mergefile.js // 合并文件路由
     └─upload.js // 上传文件路由
@@ -72,13 +71,18 @@ npm start
 ### 续传（恢复上传）
 在服务器上，假设暂时存储上传文件的目录为：
 ```js
-├─static
+├─temp
    ├─[hahs] 大文件名的hash
         ├─[chunkhash-1] 每一个chunk的hash
         ├─[chunkhash-2] 
 ```
 
-- 恢复上传的时候，拿大文件名hash去请求后端接口，看看`static/[hash]`是否存在
-- 存在的话，返回`static/[hash]`每一个chunkHash组成的数组(chunkHashList)，否则返回一个空数组
+- 恢复上传的时候，拿大文件名hash去请求后端接口，看看`temp/[hash]`是否存在
+- 存在的话，返回`temp/[hash]`每一个chunkHash组成的数组(chunkHashList)，否则返回一个空数组
 - 前端拿到请求回来的chunkHashList，跟大文件切片的chunkhash数组比较一下，删除重复的即可，剩下的就是未上传的
 - 上传未上传的chunkhash数组
+
+
+### 秒传（todo）
+
+客户端上传之前应该先发送一个校验的接口，把大文件的hash传给服务端，服务端拿到hash之后，去static目录下面找，如果存在的时候，说明已经有了，就不传；
