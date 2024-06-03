@@ -122,3 +122,83 @@ DROP DATABASE IF EXISTS 数据库名称;
 这样就不会报错了。（别忘了把user数据库重新创建一下，并切换到这个数据库）
 
 ## 表的基本操作
+### 展示当前数据库中的表
+```bash
+SHOW TABLES;
+```
+<img width="234" alt="image" src="https://github.com/senfish/blog/assets/49187663/eea6a8e0-1cb3-4dce-8411-15bee46ecc03">
+
+现在是一张表都没有，是正常的，因为我们还没有在`user`数据库下面创建表。
+### 创建表
+创建一个表至少要完成以下几件事：
+- 给表取一个表名
+- 给表定义一些列，并且给这些列都起个名
+- 每一个列都需要定义一种数据类型。
+- 如果有需要的话，可以给这些列定义一些列的属性，比如不许存储NULL，设置默认值等等
+
+所以MySQL中创建表的基本语法就是这样的：
+```mysql
+CREATE TABLE 表名 (
+  列名1    数据类型    [列的属性],
+  列名2    数据类型    [列的属性],
+  ...
+  列名n    数据类型    [列的属性]
+) COMMENT '表的注释信息';
+```
+让我们创建一个名为user_info的表吧：
+```mysql
+CREATE TABLE user_info (
+  name    VARCHAR(100),
+  age     INT
+) COMMENT '用户信息表';
+```
+<img width="347" alt="image" src="https://github.com/senfish/blog/assets/49187663/d3026d55-db50-45af-be0c-07dbd8bf3b66">
+
+再查看一下表：
+
+<img width="257" alt="image" src="https://github.com/senfish/blog/assets/49187663/f8f832a2-c4c6-458f-9c07-82cf08060e4d">
+
+可以看到，我们成功的创建了一张名为`user_info`的表。
+### 查看表结构
+有些时候，我们可能也忘了某张表的结构，可以使用下边这些语句来查看，它们起到的效果都是一样的：
+```sql
+DESCRIBE 表名;
+DESC 表名;
+EXPLAIN 表名;
+SHOW COLUMNS FROM 表名;
+SHOW FIELDS FROM 表名;
+```
+例如：
+<img width="524" alt="image" src="https://github.com/senfish/blog/assets/49187663/1833f3f6-4e3f-446f-8184-c24a23cbacad">
+
+### 删除表
+> 在真实工作环境中删除表一定要慎重谨慎!!!
+
+```sql
+DROP TABLE 表1, 表2, ..., 表n;
+```
+这个语句可以同时删除多张表，也可以只删除一张表，让我们把之前创建的`user_info`表删除试试:
+
+```sql
+DROP TABLE user_info;
+```
+
+<img width="353" alt="image" src="https://github.com/senfish/blog/assets/49187663/263f61e6-175a-40fc-aaab-1459ae4d7028">
+
+### 没有选择当前数据库时对表的操作
+有的时候，我们并不在user数据库里面，但是我们又想查看user数据库下面的user_info表，那该如何做呢？
+```sql
+SHOW TABELS FROM 数据库名称;
+```
+<img width="341" alt="image" src="https://github.com/senfish/blog/assets/49187663/cfb8822e-5e7f-4f88-ad21-e23446ba4020">
+
+如何我们此时还想看这张表的结构，那该如何做呢？
+```sql
+SHOW CREATE TABLE 数据库名称.表名称;
+```
+例如，此时我想查看user数据库下面的user_info的表结构：
+```sql
+SHOW CREATE TABLE user.user_info;
+```
+<img width="809" alt="image" src="https://github.com/senfish/blog/assets/49187663/f27d5154-cbbe-4b0d-8f98-871b0d118fcf">
+
