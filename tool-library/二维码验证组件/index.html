@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            position: relative;
+            width: 338px;
+            overflow: hidden;
+        }
+
+        .field-list {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .field-item {
+            box-sizing: border-box;
+            width: 48px;
+            height: 48px;
+            line-height: 46px;
+            font-size: 24px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .field-item-focus {
+            border-color: #409EFF;
+        }
+
+        .field-item-focus::before {
+            content: '';
+            display: block;
+            width: 2px;
+            height: 30px;
+            margin: 8px auto;
+            background: skyblue;
+            animation: blink 1s steps(1) infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .field-input {
+            box-sizing: border-box;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: calc(100% + 60px);
+            height: 48px;
+            padding: 0;
+            border: none;
+            outline: none;
+            opacity: 0;
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="field-list">
+            <div class="field-item"></div>
+            <div class="field-item"></div>
+            <div class="field-item"></div>
+            <div class="field-item"></div>
+            <div class="field-item"></div>
+            <div class="field-item"></div>
+        </div>
+        <input class="field-input" type="text" maxlength="6">
+    </div>
+
+</body>
+<script>
+    // 获取dom
+    const fieldList = document.querySelectorAll('.field-item');
+    const fieldInput = document.querySelector('.field-input');
+
+    // 监听input输入事件，只支持输入数字，过滤非数字字符
+    fieldInput.addEventListener('input', function (e) {
+        const v = e.target.value.replace(/[^\d]/g, '');
+        e.target.value = v;
+        // 考虑粘贴情况，循环赋值
+        for (let i = 0; i < 6; i++) {
+            fieldList[i].innerHTML = v[i] || '';
+        }
+        // 移除旧光标
+        removeCursor();
+        // 计算新光标出现位置
+        calcCursorPosition();
+    });
+
+    // focus
+    fieldInput.addEventListener('focus', function (e) {
+        calcCursorPosition();
+    });
+
+    // blur
+    fieldInput.addEventListener('blur', function (e) {
+        removeCursor();
+    });
+
+    // 计算光标出现位置
+    function calcCursorPosition() {
+        const length = fieldInput.value.length;
+        if (length < 6) {
+            fieldList[length].classList.add('field-item-focus');
+        }
+    }
+
+    // 移除光标
+    function removeCursor() {
+        // 最后一位没有光标，?.操作符避免报错
+        document.querySelector('.field-item-focus')?.classList.remove('field-item-focus');
+    }
+
+</script>
+
+</html>
