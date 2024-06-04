@@ -68,9 +68,11 @@ CREATE DATABASE user;
 **IF NOT EXISTS**
 
 如果创建一个已经存在的数据库，就会抛出一个错误，例如，我们继续创建一个名字为`user`的数据库
+
 <img width="607" alt="image" src="https://github.com/senfish/blog/assets/49187663/05dcf644-7c96-4838-99e8-6a4883bbb57c">
 
 错误信息告诉我们不能创建user数据库，该数据库已经存在。当我们创建一个数据库，我们也不能确定它到底存不存在的时候，就可以用下面的语句来创建数据库
+
 ```bash
 CREATE DATABASE IF NOT EXISTS 数据库名;
 ```
@@ -106,6 +108,7 @@ DROP DATABASE user;
 <img width="384" alt="image" src="https://github.com/senfish/blog/assets/49187663/4762ebcc-a924-40ed-ac73-0a7273b6c2f8">
 
 再看看现在还剩下那些数据库：
+
 <img width="265" alt="image" src="https://github.com/senfish/blog/assets/49187663/8fbaf324-9986-4396-ae86-2e34d9538fbd">
 
 **IF EXISTS**
@@ -169,6 +172,7 @@ SHOW COLUMNS FROM 表名;
 SHOW FIELDS FROM 表名;
 ```
 例如：
+
 <img width="524" alt="image" src="https://github.com/senfish/blog/assets/49187663/1833f3f6-4e3f-446f-8184-c24a23cbacad">
 
 ### 删除表
