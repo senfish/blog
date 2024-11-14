@@ -5,10 +5,12 @@
 推荐阅读 [近期的大厂面经(含字节、滴滴等公司)](https://juejin.cn/post/6995744994166308895)
 
 ## 文章 
-
+- [如何在github pages上部署自己的项目](https://juejin.cn/post/7436479025987452980)
+- [用自定义hooks优雅的解决弹窗状态问题](https://juejin.cn/post/7434040315844345871)
 - [如何让for of遍历对象](/javascript/%E5%A6%82%E4%BD%95%E8%AE%A9for...of%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1.md)
 - [大文件上传](/%E5%A4%A7%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/readme.md)
 - [超乎想象的快捷键魔法: 监听mousemove事件实现快捷键](/小技巧/实现快捷键思路.md)
+
 
 ### 数据库
 - [mysql数据库基本操作](/数据库/mysql.md)
